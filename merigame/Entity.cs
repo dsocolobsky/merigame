@@ -20,7 +20,7 @@ namespace merigame {
         public string assetName;
         public Vector2 position;
         public Rectangle size;
-        private Texture2D texture;
+        public Texture2D texture;
         private float scale;
 
         public Entity(int x, int y) {

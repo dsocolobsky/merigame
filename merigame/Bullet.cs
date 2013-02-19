@@ -11,13 +11,12 @@ namespace merigame {
     class Bullet : Entity {
         const int VELOCITY = 200;
 
-        public Texture2D texture;
         public Vector2 position;
         public Vector2 speed;
         public Vector2 direction;
 
         public Bullet(Texture2D txt, int x, int y) : base(x, y) {
-            texture = txt;
+            this.texture = txt;
 
             position.X = x;
             position.Y = y;
@@ -33,7 +32,21 @@ namespace merigame {
             direction = Vector2.Zero;
 
             speed.Y = VELOCITY;
-            direction.Y = MOVE_DOWN;
+            speed.X = VELOCITY;
+
+            if (ms.X > position.X) {
+                direction.X = MOVE_RIGHT;
+            }
+            else {
+                direction.X = MOVE_LEFT;
+            }
+
+            if (ms.Y > position.Y) {
+                direction.X = MOVE_DOWN;
+            }
+            else {
+                direction.X = MOVE_UP;
+            }
         }
 
     }

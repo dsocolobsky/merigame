@@ -58,6 +58,10 @@ namespace merigame {
             pointer.position.X = ms.X;
             pointer.position.Y = ms.Y;
 
+            foreach(Bullet b in player.bullets) {
+                b.Update(gameTime, ms);
+            }
+
             base.Update(gameTime);
         }
 
