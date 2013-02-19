@@ -48,6 +48,8 @@ namespace merigame {
 
         private void UpdateMovement(KeyboardState kbState) {
             if (currentState == State.Walking) {
+                speed = Vector2.Zero;
+                direction = Vector2.Zero;
 
                 // Moverse a la Izquierda
                 if (kbState.IsKeyDown(Keys.A) == true) {

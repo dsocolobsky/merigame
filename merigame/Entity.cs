@@ -41,7 +41,7 @@ namespace merigame {
         }
 
         public void Update(GameTime gt, Vector2 speed, Vector2 direction) {
-            position = direction * speed * (float)gt.ElapsedGameTime.TotalSeconds;
+            position += direction * speed * (float)gt.ElapsedGameTime.TotalSeconds;
         }
 
         public void Draw(SpriteBatch sb) {
