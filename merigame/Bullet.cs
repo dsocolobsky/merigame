@@ -18,6 +18,7 @@ namespace merigame {
         public Bullet(Texture2D txt, int x, int y) : base(x, y) {
             this.texture = txt;
 
+            this.Scale = 0.5f;
             position.X = x;
             position.Y = y;
         }

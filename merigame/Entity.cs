@@ -50,7 +50,8 @@ namespace merigame {
         }
 
         public void Draw(SpriteBatch sb) {
-            sb.Draw(texture, position, Color.White);
+            sb.Draw(texture, position, new Rectangle(0, 0, texture.Width,
+                texture.Height), Color.White, 0.0f, Vector2.Zero, Scale, SpriteEffects.None, 0);
         }
     }
 }
