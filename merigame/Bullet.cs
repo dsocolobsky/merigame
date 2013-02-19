@@ -35,14 +35,14 @@ namespace merigame {
             speed.Y = VELOCITY;
             speed.X = VELOCITY;
 
-            if (ms.X > position.X) {
+            if (ms.X < position.X) {
                 direction.X = MOVE_RIGHT;
             }
             else {
                 direction.X = MOVE_LEFT;
             }
 
-            if (ms.Y > position.Y) {
+            if (ms.Y < position.Y) {
                 direction.X = MOVE_DOWN;
             }
             else {

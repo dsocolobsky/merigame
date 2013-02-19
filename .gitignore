@@ -4,6 +4,7 @@
 
 merigame/bin
 merigame/obj
+*.suo
 
 ############
 ## Windows
