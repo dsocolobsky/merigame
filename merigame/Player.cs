@@ -11,7 +11,7 @@ namespace merigame {
     class Player : Entity {
 
         const string ASSET_NAME = "guy";
-
+        const int VELOCITY = 160;
         const int MOVE_UP = -1;
         const int MOVE_DOWN = 1;
         const int MOVE_LEFT = -1;
@@ -23,7 +23,6 @@ namespace merigame {
 
         KeyboardState prevKbState; // Tecla anteriormente presionada
 
-        int velocity;
         Vector2 direction;
         Vector2 speed;
 
@@ -31,7 +30,6 @@ namespace merigame {
             position = new Vector2(x, y);
             speed = Vector2.Zero;
             direction = Vector2.Zero;
-            velocity = 160;
         }
 
         public void LoadContent(ContentManager cm) {
@@ -53,25 +51,25 @@ namespace merigame {
 
                 // Moverse a la Izquierda
                 if (kbState.IsKeyDown(Keys.A) == true) {
-                    speed.X = velocity;
+                    speed.X = VELOCITY;
                     direction.X = MOVE_LEFT;
                 }
 
                 // Moverse a la Derecha
                 else if (kbState.IsKeyDown(Keys.D) == true) {
-                    speed.X = velocity;
+                    speed.X = VELOCITY;
                     direction.X = MOVE_RIGHT;
                 }
 
                 // Moverse Arriba
                 else if (kbState.IsKeyDown(Keys.W) == true) {
-                    speed.Y = velocity;
+                    speed.Y = VELOCITY;
                     direction.Y = MOVE_UP;
                 }
 
                 // Moverse Abajo
                 else if (kbState.IsKeyDown(Keys.S) == true) {
-                    speed.Y = velocity;
+                    speed.Y = VELOCITY;
                     direction.Y = MOVE_DOWN;
                 }
 
