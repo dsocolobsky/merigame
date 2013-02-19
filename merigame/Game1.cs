@@ -15,8 +15,10 @@ namespace merigame {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Entity pointer; // Para apuntar
-        Player player; // Jugador principal
+        Entity pointer;
+        Player player;
+
+        Texture2D bulletTexture;
 
         public Game1() : base() {
             graphics = new GraphicsDeviceManager(this);
@@ -37,7 +39,8 @@ namespace merigame {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             pointer.LoadContent(this.Content, "aim");
-            player.LoadContent(this.Content, "guy");
+            player.LoadContent(this.Content);
+            player.bulletTexture = this.Content.Load<Texture2D>("bullet");
         }
 
         protected override void UnloadContent() {
@@ -48,11 +51,10 @@ namespace merigame {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            player.Update(gameTime);
-
             MouseState ms = Mouse.GetState();
 
-            // Actualizar posicion del puntero
+            player.Update(gameTime, ms);
+
             pointer.position.X = ms.X;
             pointer.position.Y = ms.Y;
 
@@ -66,6 +68,10 @@ namespace merigame {
 
             pointer.Draw(this.spriteBatch);
             player.Draw(this.spriteBatch);
+
+            foreach (Bullet b in player.bullets) {
+                b.Draw(this.spriteBatch);
+            }
 
             spriteBatch.End();
 

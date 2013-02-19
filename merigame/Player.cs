@@ -17,57 +17,70 @@ namespace merigame {
         const int MOVE_LEFT = -1;
         const int MOVE_RIGHT = 1;
 
-        // Diversos estados: Walking, Dead, Shooting, etc.
         enum State { Walking }
         State currentState = State.Walking;
 
-        KeyboardState prevKbState; // Tecla anteriormente presionada
+        KeyboardState prevKbState;
 
         Vector2 direction;
         Vector2 speed;
+
+        public Texture2D bulletTexture;
+
+        public List<Bullet> bullets;
 
         public Player(int x, int y) : base(x, y) {
             position = new Vector2(x, y);
             speed = Vector2.Zero;
             direction = Vector2.Zero;
+            bullets = new List<Bullet>();
         }
 
         public void LoadContent(ContentManager cm) {
             base.LoadContent(cm, ASSET_NAME);
         }
 
-        public void Update(GameTime gt) {
+        public void Update(GameTime gt, MouseState ms) {
             KeyboardState kbState = Keyboard.GetState();
-            UpdateMovement(kbState);
+            UpdateMovement(kbState, ms);
 
             prevKbState = kbState;
             base.Update(gt, speed, direction);
         }
 
-        private void UpdateMovement(KeyboardState kbState) {
+        private void shoot(int x, int y) {
+            bullets.Add(new Bullet(bulletTexture, (int)position.X, (int)position.Y));
+        }
+
+        private void UpdateMovement(KeyboardState kbState, MouseState ms) {
             if (currentState == State.Walking) {
                 speed = Vector2.Zero;
                 direction = Vector2.Zero;
 
-                // Moverse a la Izquierda
+                // Shoot
+                if (ms.LeftButton == ButtonState.Pressed) {
+                    shoot(ms.X, ms.Y);
+                }
+
+                // Move left
                 if (kbState.IsKeyDown(Keys.A) == true) {
                     speed.X = VELOCITY;
                     direction.X = MOVE_LEFT;
                 }
 
-                // Moverse a la Derecha
+                // Move right
                 else if (kbState.IsKeyDown(Keys.D) == true) {
                     speed.X = VELOCITY;
                     direction.X = MOVE_RIGHT;
                 }
 
-                // Moverse Arriba
+                // Move up
                 else if (kbState.IsKeyDown(Keys.W) == true) {
                     speed.Y = VELOCITY;
                     direction.Y = MOVE_UP;
                 }
 
-                // Moverse Abajo
+                // Move down
                 else if (kbState.IsKeyDown(Keys.S) == true) {
                     speed.Y = VELOCITY;
                     direction.Y = MOVE_DOWN;

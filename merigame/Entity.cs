@@ -11,6 +11,12 @@ namespace merigame {
 
     // Entity: Objeto o cosa en el juego
     class Entity {
+
+        public const int MOVE_UP = -1;
+        public const int MOVE_DOWN = 1;
+        public const int MOVE_LEFT = -1;
+        public const int MOVE_RIGHT = 1;
+
         public string assetName;
         public Vector2 position;
         public Rectangle size;
@@ -22,7 +28,6 @@ namespace merigame {
             scale = 1f;
         }
 
-        // Aplicar escala al sprite
         public float Scale {
             get { return scale; }
             set {
@@ -36,7 +41,7 @@ namespace merigame {
         public void LoadContent(ContentManager cm, string assetName) {
             texture = cm.Load<Texture2D>(assetName);
             this.assetName = assetName;
-            // Aplicar la escala
+            // Apply scale
             size = new Rectangle(0, 0, (int)(texture.Width * scale), (int)(texture.Height * scale));
         }
 
