@@ -8,17 +8,23 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 
 namespace merigame {
-    class Player : Entity {
+    class Player : SpriteEntity {
 
-        const string ASSET_NAME = "guy";
+        const string ASSET_NAME = "skel";
         const int VELOCITY = 160;
         const int MOVE_UP = -1;
         const int MOVE_DOWN = 1;
         const int MOVE_LEFT = -1;
         const int MOVE_RIGHT = 1;
 
-        enum State { Walking }
-        State currentState = State.Walking;
+        const int START_X = 200;
+        const int START_Y = 200;
+
+        enum State { LookingLeft, LookingRight, LookingUp,
+        LookingDown}
+        enum TotalState { Alive }
+        State currentState = State.LookingUp;
+        TotalState totalState = TotalState.Alive;
 
         KeyboardState prevKbState;
 
@@ -34,10 +40,13 @@ namespace merigame {
             speed = Vector2.Zero;
             direction = Vector2.Zero;
             bullets = new List<Bullet>();
+            Scale = 2.5f;
         }
 
         public void LoadContent(ContentManager cm) {
+            position = new Vector2(START_X, START_Y);
             base.LoadContent(cm, ASSET_NAME);
+            source = new Rectangle(0, 0, 200, source.Height);
         }
 
         public void Update(GameTime gt, MouseState ms) {
@@ -53,7 +62,7 @@ namespace merigame {
         }
 
         private void UpdateMovement(KeyboardState kbState, MouseState ms) {
-            if (currentState == State.Walking) {
+            if (totalState == TotalState.Alive) {
                 speed = Vector2.Zero;
                 direction = Vector2.Zero;
 
@@ -64,30 +73,60 @@ namespace merigame {
 
                 // Move left
                 if (kbState.IsKeyDown(Keys.A) == true) {
-                    speed.X = VELOCITY;
-                    direction.X = MOVE_LEFT;
+                    move("left");
                 }
 
                 // Move right
                 else if (kbState.IsKeyDown(Keys.D) == true) {
-                    speed.X = VELOCITY;
-                    direction.X = MOVE_RIGHT;
+                    move("right");
                 }
 
                 // Move up
                 else if (kbState.IsKeyDown(Keys.W) == true) {
-                    speed.Y = VELOCITY;
-                    direction.Y = MOVE_UP;
+                    move("up");
                 }
 
                 // Move down
                 else if (kbState.IsKeyDown(Keys.S) == true) {
-                    speed.Y = VELOCITY;
-                    direction.Y = MOVE_DOWN;
+                    move("down");
                 }
 
             }
-        }        
+
+        }
+
+        private void move(string dir) {
+            switch (dir) {
+                case "left":
+                    speed.X = VELOCITY;
+                    direction.X = MOVE_LEFT;
+                    source = new Rectangle(0, 96, 12, 112);
+                    currentState = State.LookingLeft;
+                    break;
+
+                case "right":
+                    speed.X = VELOCITY;
+                    direction.X = MOVE_RIGHT;
+                    //source = new Rectangle(0, 64, 12, 80);
+                    source = new Rectangle(0, 64, 12, 80);
+                    currentState = State.LookingLeft;
+                    break;
+
+                case "up":
+                    speed.Y = VELOCITY;
+                    direction.Y = MOVE_UP;
+                    source = new Rectangle(0, 32, 12, 48);
+                    currentState = State.LookingLeft;
+                    break;
+
+                case "down":
+                    speed.Y = VELOCITY;
+                    direction.Y = MOVE_DOWN;
+                    source = new Rectangle(0, 0, 12, 16);
+                    currentState = State.LookingLeft;
+                    break;
+            }
+        }
 
     }
 }

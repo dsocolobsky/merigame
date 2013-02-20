@@ -8,35 +8,30 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 
 namespace merigame {
+    class SpriteEntity : Entity {
+        public Rectangle source;
 
-    // Entity: Objeto o cosa en el juego
-    class Entity {
-
-        public const int MOVE_UP = -1;
-        public const int MOVE_DOWN = 1;
-        public const int MOVE_LEFT = -1;
-        public const int MOVE_RIGHT = 1;
-
-        public string assetName;
-        public Vector2 position;
-        public Rectangle size;
-        public Texture2D texture;
-        protected float scale;
-
-        public Entity(int x, int y) {
+        public SpriteEntity(int x, int y) : base(x, y) {
             position = new Vector2(x, y);
             scale = 1f;
+        }
+
+        public Rectangle Source {
+            get { return source; }
+            set {
+                source = value;
+                size = new Rectangle(0, 0, (int)(source.Width * scale), (int)(source.Height * scale));
+            }
         }
 
         public float Scale {
             get { return scale; }
             set {
                 scale = value;
-                size = new Rectangle(0, 0, (int)(texture.Width * scale),
-                    (int)(texture.Height * scale));
+                size = new Rectangle(0, 0, (int)(source.Width * scale),
+                    (int)(source.Height * scale));
             }
         }
-
 
         public void LoadContent(ContentManager cm, string assetName) {
             texture = cm.Load<Texture2D>(assetName);
@@ -45,14 +40,9 @@ namespace merigame {
             size = new Rectangle(0, 0, (int)(texture.Width * scale), (int)(texture.Height * scale));
         }
 
-        public void Update(GameTime gt, Vector2 speed, Vector2 direction) {
-            position += direction * speed * (float)gt.ElapsedGameTime.TotalSeconds;
-        }
-
         public void Draw(SpriteBatch sb) {
-            sb.Draw(texture, position, Color.White);
+            sb.Draw(texture, position, source, Color.White, 0.0f,
+                Vector2.Zero, Scale, SpriteEffects.None, 0);
         }
     }
 }
-
-
