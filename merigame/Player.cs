@@ -100,7 +100,7 @@ namespace merigame {
                 case "left":
                     speed.X = VELOCITY;
                     direction.X = MOVE_LEFT;
-                    source = new Rectangle(0, 96, 12, 112);
+                    source = new Rectangle(0, 96, 12, 17);
                     currentState = State.LookingLeft;
                     break;
 
@@ -108,14 +108,14 @@ namespace merigame {
                     speed.X = VELOCITY;
                     direction.X = MOVE_RIGHT;
                     //source = new Rectangle(0, 64, 12, 80);
-                    source = new Rectangle(0, 64, 12, 80);
+                    source = new Rectangle(0, 64, 12, 17);
                     currentState = State.LookingLeft;
                     break;
 
                 case "up":
                     speed.Y = VELOCITY;
                     direction.Y = MOVE_UP;
-                    source = new Rectangle(0, 32, 12, 48);
+                    source = new Rectangle(0, 32, 12, 16);
                     currentState = State.LookingLeft;
                     break;
 
