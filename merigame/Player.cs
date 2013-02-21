@@ -58,7 +58,7 @@ namespace merigame {
         }
 
         private void shoot(int x, int y) {
-            bullets.Add(new Bullet(bulletTexture, (int)position.X, (int)position.Y));
+            bullets.Add(new Bullet(bulletTexture, (int)position.X, (int)position.Y, new Vector2(x, y)));
         }
 
         private void UpdateMovement(KeyboardState kbState, MouseState ms) {

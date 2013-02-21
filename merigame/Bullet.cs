@@ -14,13 +14,16 @@ namespace merigame {
         public Vector2 position;
         public Vector2 speed;
         public Vector2 direction;
+        public Vector2 destiny;
 
-        public Bullet(Texture2D txt, int x, int y) : base(x, y) {
+        public Bullet(Texture2D txt, int x, int y, Vector2 dest) : base(x, y) {
             this.texture = txt;
 
             this.Scale = 0.5f;
             position.X = x;
             position.Y = y;
+
+            destiny = dest;
         }
 
         public void Update(GameTime gt, MouseState ms) {
@@ -31,18 +34,18 @@ namespace merigame {
         public void move(GameTime gt, MouseState ms) {
             speed = Vector2.Zero;
             direction = Vector2.Zero;
-
+            
             speed.Y = VELOCITY;
             speed.X = VELOCITY;
 
-            if (ms.X < position.X) {
+            if (destiny.X < position.X) {
                 direction.X = MOVE_RIGHT;
             }
             else {
                 direction.X = MOVE_LEFT;
             }
 
-            if (ms.Y < position.Y) {
+            if (destiny.Y < position.Y) {
                 direction.X = MOVE_DOWN;
             }
             else {
