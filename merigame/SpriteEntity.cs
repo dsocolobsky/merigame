@@ -11,8 +11,8 @@ namespace merigame {
     class SpriteEntity : Entity {
         public Rectangle source;
 
-        public SpriteEntity(int x, int y) : base(x, y) {
-            position = new Vector2(x, y);
+        public SpriteEntity(Vector2 origin) : base(origin) {
+            this.position = origin;
             scale = 1f;
         }
 

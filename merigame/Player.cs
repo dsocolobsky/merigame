@@ -12,6 +12,7 @@ namespace merigame {
 
         const string ASSET_NAME = "skel";
         const int VELOCITY = 160;
+
         const int MOVE_UP = -1;
         const int MOVE_DOWN = 1;
         const int MOVE_LEFT = -1;
@@ -35,12 +36,11 @@ namespace merigame {
 
         public List<Bullet> bullets;
 
-        public Player(int x, int y) : base(x, y) {
-            position = new Vector2(x, y);
+        public Player(Vector2 origin) : base(origin) {
             speed = Vector2.Zero;
             direction = Vector2.Zero;
             bullets = new List<Bullet>();
-            Scale = 2.5f;
+            scale = 2.5f;
         }
 
         public void LoadContent(ContentManager cm) {
@@ -57,8 +57,9 @@ namespace merigame {
             base.Update(gt, speed, direction);
         }
 
-        private void shoot(int x, int y) {
-            bullets.Add(new Bullet(bulletTexture, (int)position.X, (int)position.Y, new Vector2(x, y)));
+        private void shoot(Vector2 direction) {
+            bullets.Add(new Bullet(bulletTexture, new Vector2((int)position.X, (int)position.Y),
+                new Vector2(direction.X, direction.Y)));
         }
 
         private void UpdateMovement(KeyboardState kbState, MouseState ms) {
@@ -68,7 +69,7 @@ namespace merigame {
 
                 // Shoot
                 if (ms.LeftButton == ButtonState.Pressed) {
-                    shoot(ms.X, ms.Y);
+                    shoot(new Vector2(ms.X, ms.Y));
                 }
 
                 // Move left
@@ -107,7 +108,6 @@ namespace merigame {
                 case "right":
                     speed.X = VELOCITY;
                     direction.X = MOVE_RIGHT;
-                    //source = new Rectangle(0, 64, 12, 80);
                     source = new Rectangle(0, 64, 12, 17);
                     currentState = State.LookingLeft;
                     break;

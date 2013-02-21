@@ -23,8 +23,8 @@ namespace merigame {
         public Texture2D texture;
         protected float scale;
 
-        public Entity(int x, int y) {
-            position = new Vector2(x, y);
+        public Entity(Vector2 pos) {
+            position = new Vector2(pos.X, pos.Y);
             scale = 1f;
         }
 

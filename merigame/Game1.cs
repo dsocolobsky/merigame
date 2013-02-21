@@ -28,8 +28,8 @@ namespace merigame {
 
         protected override void Initialize() {
             IsMouseVisible = false;
-            pointer = new Entity(200, 200);
-            player = new Player(300, 300);
+            pointer = new Entity(new Vector2(200, 200));
+            player = new Player(new Vector2(300, 300));
 
             base.Initialize();
         }
