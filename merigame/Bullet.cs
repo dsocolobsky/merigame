@@ -16,12 +16,11 @@ namespace merigame {
         public Vector2 direction;
         public Vector2 destiny;
 
-        public Bullet(Texture2D txt, int x, int y, Vector2 dest) : base(x, y) {
+        public Bullet(Texture2D txt, Vector2 origin, Vector2 dest) : base(origin) {
             this.texture = txt;
 
             this.Scale = 0.5f;
-            position.X = x;
-            position.Y = y;
+            this.position = origin;
 
             destiny = dest;
         }
@@ -38,18 +37,18 @@ namespace merigame {
             speed.Y = VELOCITY;
             speed.X = VELOCITY;
 
-            if (destiny.X < position.X) {
+            if (destiny.Y > position.Y) {
+                direction.Y = MOVE_DOWN;
+            }
+            else {
+                direction.Y = MOVE_UP;
+            }
+
+            if (destiny.X > position.X) {
                 direction.X = MOVE_RIGHT;
             }
             else {
                 direction.X = MOVE_LEFT;
-            }
-
-            if (destiny.Y < position.Y) {
-                direction.X = MOVE_DOWN;
-            }
-            else {
-                direction.X = MOVE_UP;
             }
         }
 
