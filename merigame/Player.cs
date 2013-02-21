@@ -21,8 +21,8 @@ namespace merigame {
         const int START_X = 200;
         const int START_Y = 200;
 
-        const int MAX_BULLETS = 20;
-
+        const int MAX_BULLETS = 20;  //pregunto, el numero de balas no seria mejor meterlas dentrto
+                                     //de la propia clase de cada arma? porque no tiene sentido que sea la misma para todas
         enum State { LookingLeft, LookingRight, LookingUp,
         LookingDown}
         enum TotalState { Alive }
