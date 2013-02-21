@@ -21,6 +21,8 @@ namespace merigame {
         const int START_X = 200;
         const int START_Y = 200;
 
+        const int MAX_BULLETS = 20;
+
         enum State { LookingLeft, LookingRight, LookingUp,
         LookingDown}
         enum TotalState { Alive }
@@ -31,6 +33,8 @@ namespace merigame {
 
         Vector2 direction;
         Vector2 speed;
+
+        public int currentBullets;
 
         public Texture2D bulletTexture;
 
@@ -51,25 +55,28 @@ namespace merigame {
 
         public void Update(GameTime gt, MouseState ms) {
             KeyboardState kbState = Keyboard.GetState();
-            UpdateMovement(kbState, ms);
-
+            UpdateMovement(gt, kbState, ms);
+            currentBullets = bullets.Count;
             prevKbState = kbState;
             base.Update(gt, speed, direction);
         }
 
-        private void shoot(Vector2 direction) {
-            bullets.Add(new Bullet(bulletTexture, new Vector2((int)position.X, (int)position.Y),
-                new Vector2(direction.X, direction.Y)));
+        private void shoot(GameTime gt, Vector2 direction) {
+            if (currentBullets < MAX_BULLETS) {
+                bullets.Add(new Bullet(bulletTexture, new Vector2((int)position.X, (int)position.Y),
+                    new Vector2(direction.X, direction.Y)));
+            }
         }
 
-        private void UpdateMovement(KeyboardState kbState, MouseState ms) {
+        private void UpdateMovement(GameTime gt, KeyboardState kbState, MouseState ms) {
             if (totalState == TotalState.Alive) {
                 speed = Vector2.Zero;
                 direction = Vector2.Zero;
+                
 
                 // Shoot
                 if (ms.LeftButton == ButtonState.Pressed) {
-                    shoot(new Vector2(ms.X, ms.Y));
+                    shoot(gt, new Vector2(ms.X, ms.Y));
                 }
 
                 // Move left

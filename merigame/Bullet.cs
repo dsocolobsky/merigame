@@ -11,10 +11,10 @@ namespace merigame {
     class Bullet : Entity {
         const int VELOCITY = 200;
 
-        public Vector2 position;
         public Vector2 speed;
         public Vector2 direction;
         public Vector2 destiny;
+        public Vector2 angle;
 
         public Bullet(Texture2D txt, Vector2 origin, Vector2 dest) : base(origin) {
             this.texture = txt;

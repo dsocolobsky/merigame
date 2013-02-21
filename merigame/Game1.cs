@@ -20,9 +20,15 @@ namespace merigame {
 
         Texture2D bulletTexture;
 
+        int screenHeight;
+        int screenWidth;
+
         public Game1() : base() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            screenHeight = graphics.PreferredBackBufferHeight;
+            screenWidth = graphics.PreferredBackBufferWidth;
         }
 
 
@@ -60,6 +66,14 @@ namespace merigame {
 
             foreach(Bullet b in player.bullets) {
                 b.Update(gameTime, ms);
+            }
+
+            for (int i = 0; i < player.bullets.Count; i++ ) {
+                if (player.bullets[i].position.X < 0 || player.bullets[i].position.X > screenWidth ||
+                    player.bullets[i].position.Y < 0 || player.bullets[i].position.Y > screenHeight) {
+                        player.bullets.RemoveAt(i);
+                        i--;
+                }
             }
 
             base.Update(gameTime);
